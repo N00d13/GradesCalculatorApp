@@ -7,21 +7,26 @@ import model.Subject;
 import model.GradeComponent;
 import model.Assignment;
 
-public class ClassGradesApp {
-    private ClassList enrolledClasses;
-    private Scanner input;
-    private boolean continueProgram;
+//Grades calculator application
+public class GradesCalculatorApp {
+    private ClassList enrolledClasses; //ClassList object containing all classes enrolled in
+    private Scanner input; //Scanner to check user input
+    private boolean continueProgram; //Boolean if application should continue running
 
-    public ClassGradesApp() {
+    //EFFECTS: runs grades calculator application
+    public GradesCalculatorApp() {
         runClassGradesApp();
     }
 
+    //MODIFIES: this
+    //EFFECTS: initializes class list
     private void init() {
         input = new Scanner(System.in);
         enrolledClasses = new ClassList();
         continueProgram = true;
     }
 
+    //EFFECTS: loops asking user for input options
     private void runClassGradesApp() {
         init();
         welcomeStatement();
@@ -34,6 +39,7 @@ public class ClassGradesApp {
         System.exit(0);
     }
 
+    //EFFECTS: displays menu option
     public void listOptions() {
         System.out.println("What would you like to do?");
         System.out.println("Type the letter corresponding to the description");
@@ -45,6 +51,8 @@ public class ClassGradesApp {
         System.out.println("(f) End the program");
     }
 
+    //MODIFIES: this
+    //EFFECTS: processes input of user
     public void chooseOptions() {
         String inputSelected = input.nextLine();
         if (inputSelected.equals("a")) {
@@ -54,7 +62,7 @@ public class ClassGradesApp {
         } else if (inputSelected.equals("c")) {
             addNewAssignment();
         } else if (inputSelected.equals("d")) {
-            totalAverage();
+            printTotalAverage();
         } else if (inputSelected.equals("e")) {
             removeAClass();
         } else if (inputSelected.equals("f")) {
@@ -64,10 +72,13 @@ public class ClassGradesApp {
         }
     }
 
+    //EFFECTS: displays a welcome message
     public void welcomeStatement() {
         System.out.println("Hello, welcome to your grade planner");
     }
 
+    //MODIFIES: this
+    //EFFECTS: adds a new subject to class list
     public void addNewClass() {
         System.out.println("What is the name of the class you're enrolled in?");
         String subjectName = input.nextLine();
@@ -75,9 +86,11 @@ public class ClassGradesApp {
         enrolledClasses.addClass(newSubject);
         System.out.println("The class " + subjectName + " was added to your enrolled classes.");
         System.out.println("Your class list is now: ");
-        System.out.println(enrolledClasses.getClassesEnrolledNames());
+        System.out.println(enrolledClasses.getSubjectNames());
     }
 
+    //MODIFIES: this
+    //EFFECTS: adds a new component to subject list
     public void addNewComponent() {
         System.out.println("What component of the class would you like to add?");
         System.out.println("This can be anything like a quiz, test, assignment, etc.");
@@ -93,9 +106,11 @@ public class ClassGradesApp {
         subjectSelected.addSubject(newComponent);
         System.out.println("You have successfully added the component: " + componentName);
         System.out.println("The updated components in this class are:");
-        System.out.println(subjectSelected.getSubjectNames());
+        System.out.println(subjectSelected.getComponentNames());
     }
 
+    //MODIFIES: this
+    //EFFECTS: adds a new assignment to grade component list
     public void addNewAssignment() {
         System.out.println("What Assignment would you like to add?");
         String assignmentName = input.nextLine();
@@ -114,40 +129,45 @@ public class ClassGradesApp {
         componentSelected.addAssignment(newAssignment);
         System.out.println("You have successfully added the Assignment: " + assignmentName);
         System.out.println("The updated assignments in this component are: ");
-        System.out.println(componentSelected.getComponentNames());
+        System.out.println(componentSelected.getAssignmentNames());
     }
 
+    //MODIFIES: this
+    //EFFECTS: Prompts user to select the class they want to add to and returns it
     public Subject selectClass() {
         Subject stubSubject = new Subject("stubClass");
         System.out.println("What class is this for?");
         System.out.println("Your options are:");
-        System.out.println(enrolledClasses.getClassesEnrolledNames());
+        System.out.println(enrolledClasses.getSubjectNames());
         String className = input.nextLine();
-        boolean doesContain = enrolledClasses.containsSubjectWithClass(className);
+        boolean doesContain = enrolledClasses.containsSubject(className);
         if (doesContain == false) {
             System.out.println("Sorry, that is not a class you are currently enrolled in");
             return stubSubject;
         }
-        Subject subjectSelected = enrolledClasses.getSubjectWithClass(className);
+        Subject subjectSelected = enrolledClasses.getSubject(className);
         return subjectSelected;
     }
 
+    //MODIFIES: this
+    //EFFECTS: prompts user to select the grade component they want to add to and returns it
     public GradeComponent selectGradeComponent(Subject subjectSelected) {
         GradeComponent stubComponent = new GradeComponent("stubComponent", 100);
         System.out.println("What Grade Component is this for?");
         System.out.println("your options are:");
-        System.out.println(subjectSelected.getSubjectNames());
+        System.out.println(subjectSelected.getComponentNames());
         String componentName = input.nextLine();
-        boolean doesContain = subjectSelected.containsComponentWithSubject(componentName);
+        boolean doesContain = subjectSelected.containsComponent(componentName);
         if (doesContain == false) {
             System.out.println("Sorry, that is not a component part of that class");
             return stubComponent;
         }
-        GradeComponent componentSelected = subjectSelected.getComponentWithSubject(componentName);
+        GradeComponent componentSelected = subjectSelected.getComponent(componentName);
         return componentSelected;
     }
 
-    public void totalAverage() {
+    //EFFECTS: prints the overall average of all classes enrolled in
+    public void printTotalAverage() {
         if (!enrolledClasses.isNotEmpty()) {
             if (enrolledClasses.getLength() == 0) {
                 System.out.println("You have no class to calculate the average");
@@ -164,21 +184,23 @@ public class ClassGradesApp {
         System.out.println("Your overall average is: " + average);
     }
 
+    //MODIFIES: this
+    //EFFECTS: removes a class from the class list
     public void removeAClass() {
         System.out.println("What class would you like to remove?");
         System.out.println("Your options are:");
-        System.out.println(enrolledClasses.getClassesEnrolledNames());
+        System.out.println(enrolledClasses.getSubjectNames());
         String className = input.nextLine();
-        boolean doesContain = enrolledClasses.containsSubjectWithClass(className);
+        boolean doesContain = enrolledClasses.containsSubject(className);
         if (doesContain == false) {
             System.out.println("Sorry, that is not a class you are currently enrolled in");
             return;
         }
-        Subject subjectSelected = enrolledClasses.getSubjectWithClass(className);
+        Subject subjectSelected = enrolledClasses.getSubject(className);
         enrolledClasses.removeClass(subjectSelected);
         System.out.println("The class " + className + " was removed from your enrolled classes.");
         System.out.println("Your class list is now: ");
-        System.out.println(enrolledClasses.getClassesEnrolledNames());
+        System.out.println(enrolledClasses.getSubjectNames());
     }
 
 }

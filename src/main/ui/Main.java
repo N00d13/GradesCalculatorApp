@@ -1,15 +1,9 @@
 package ui;
 
-
+//Main file in grades Calculator
 public class Main {
-    //private LinkedList<Subject> enrolledClasses;
-
-
     public static void main(String[] args) {
-        new ClassGradesApp();
-
-
-
+        new GradesCalculatorApp();
     }
 
 }

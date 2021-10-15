@@ -33,7 +33,7 @@ public class Subject {
     }
 
     //EFFECTS: Returns a string with the names of a subject separated by spaces
-    public String getSubjectNames() {
+    public String getComponentNames() {
         String componentNames = "";
         for (GradeComponent component: gradeComponents) {
             componentNames += " " + component.getName();
@@ -42,8 +42,8 @@ public class Subject {
     }
 
     //EFFECTS: returns true if a component of this subject contains the component name
-    // in the parameter, otherwise returns false.
-    public boolean containsComponentWithSubject(String inputComponentName) {
+    //         in the parameter, otherwise returns false.
+    public boolean containsComponent(String inputComponentName) {
         boolean doesContain = false;
         for (GradeComponent component: gradeComponents) {
             if (inputComponentName.equals(component.getName())) {
@@ -54,8 +54,8 @@ public class Subject {
     }
 
     //EFFECTS: returns the component associated with the inputted name.
-    // Otherwise, returns a component with the name: NotRealComponent
-    public GradeComponent getComponentWithSubject(String inputComponentName) {
+    //         Otherwise, returns a component with the name: NotRealComponent
+    public GradeComponent getComponent(String inputComponentName) {
         GradeComponent nullReturn = new GradeComponent("NotRealComponent", 100);
         for (GradeComponent component: gradeComponents) {
             if (inputComponentName.equals(component.getName())) {
@@ -88,5 +88,10 @@ public class Subject {
     //EFFECTS: returns the name of this subject
     public String getName() {
         return this.subjectName;
+    }
+
+    //EFFECTS: returns the length of this subject
+    public int getLength() {
+        return this.length;
     }
 }

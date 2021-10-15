@@ -23,6 +23,7 @@ public class GradeComponent {
         length++;
     }
 
+    //REQUIRES: length > 0
     //EFFECTS: returns the weighed average of a component
     public double getComponentWeightedAverage() {
         double average = 0;
@@ -34,7 +35,7 @@ public class GradeComponent {
     }
 
     //EFFECTS: Returns a string with all the assignment names separated with a space
-    public String getComponentNames() {
+    public String getAssignmentNames() {
         String assignmentNames = "";
         for (Assignment assignment: assignments) {
             assignmentNames += " " + assignment.getName();
