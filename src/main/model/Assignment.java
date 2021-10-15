@@ -1,21 +1,23 @@
 package model;
 
+//Represents an assignment with a name and a grade out of 100
 public class Assignment {
-    private String assignmentName;
-    private int grade;
+    private String assignmentName; //Assignment name
+    private double grade; //Assignment grade
 
-
-
-    public Assignment(String componentName, int assignmentID, int grade) {
+    //EFFECTS: Assignment given a name and a grade
+    public Assignment(String componentName, double grade) {
         this.assignmentName = componentName;
         this.grade = grade;
     }
 
-    public String getAssignmentName() {
+    //EFFECTS: returns the name of this assignment
+    public String getName() {
         return this.assignmentName;
     }
 
-    public int getGrade() {
+    //EFFECTS: returns the grade of this assignment
+    public double getGrade() {
         return this.grade;
     }
 
