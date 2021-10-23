@@ -19,4 +19,6 @@ These are some examples how the application can be used.
 - As a user, I want to be able to input an assignment and grade I just received from my teacher
 - As a user, I want to be able to find my overall average from all my classes
 - As a user, I want to be able to remove a class that I am no longer part of
+- As a user, I want to be able to save my added classes, grade components and assignments to a file
+- As a user, I want to be able to load my classes, grade components and assignments from a file
 
