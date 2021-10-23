@@ -58,6 +58,10 @@ public class GradeComponent {
         return this.length;
     }
 
+    public LinkedList<Assignment> getAssignments() {
+        return this.assignments;
+    }
+
 
 
 }

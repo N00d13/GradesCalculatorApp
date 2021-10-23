@@ -1,17 +1,24 @@
 package ui;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
+import persistence.JsonWriter;
+import persistence.JsonReader;
 
 import model.ClassList;
 import model.Subject;
 import model.GradeComponent;
 import model.Assignment;
 
+import persistence.JsonWriter;
+
 //Grades calculator application
 public class GradesCalculatorApp {
     private ClassList enrolledClasses; //ClassList object containing all classes enrolled in
     private Scanner input; //Scanner to check user input
     private boolean continueProgram; //Boolean if application should continue running
+    private JsonWriter fileWriter;
+    private static final String FILE_SAVE_LOCATION = "./data/GradeCalculator.json";
 
     //EFFECTS: runs grades calculator application
     public GradesCalculatorApp() {
@@ -24,6 +31,7 @@ public class GradesCalculatorApp {
         input = new Scanner(System.in);
         enrolledClasses = new ClassList();
         continueProgram = true;
+        fileWriter = new JsonWriter(FILE_SAVE_LOCATION);
     }
 
     //EFFECTS: loops asking user for input options
@@ -49,6 +57,7 @@ public class GradesCalculatorApp {
         System.out.println("(d) Find your overall average");
         System.out.println("(e) Remove a class");
         System.out.println("(f) End the program");
+        System.out.println("(g) Save File");
     }
 
     //MODIFIES: this
@@ -67,6 +76,8 @@ public class GradesCalculatorApp {
             removeAClass();
         } else if (inputSelected.equals("f")) {
             continueProgram = false;
+        } else if (inputSelected.equals("g")) {
+            saveFile();
         } else {
             System.out.println("That is not an option, pick one of the choices");
         }
@@ -201,6 +212,17 @@ public class GradesCalculatorApp {
         System.out.println("The class " + className + " was removed from your enrolled classes.");
         System.out.println("Your class list is now: ");
         System.out.println(enrolledClasses.getSubjectNames());
+    }
+
+    public void saveFile() {
+        try {
+            fileWriter.open();
+            fileWriter.write(enrolledClasses);
+            fileWriter.close();
+            System.out.println("Successfully saved Grade Calculator to a file");
+        } catch (FileNotFoundException e) {
+            System.out.println("There is no saved file");
+        }
     }
 
 }

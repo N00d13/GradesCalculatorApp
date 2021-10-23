@@ -1,6 +1,12 @@
 package model;
 
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.LinkedList;
+
+
 
 //Represents a class list with a list of subject enrolled in
 public class ClassList {
@@ -95,6 +101,71 @@ public class ClassList {
     //EFFECTS: returns the length of this ClassList
     public int getLength() {
         return this.length;
+    }
+
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+        String subjectName = "";
+        String componentName = "";
+        int componentWeight = 0;
+        String assignmentName = "";
+        double assignmentGrade = 0;
+        JSONArray jsonArray = arrayToJson(subjectName, componentName, componentWeight, assignmentName, assignmentGrade);
+
+        jsonObject.put("assignments", jsonArray);
+        return jsonObject;
+    }
+
+    public JSONArray arrayToJson(String subjectName, String componentName, int componentWeight,
+                                 String assignmentName, double assignmentGrade) {
+        JSONArray jsonArray = new JSONArray();
+        for (Subject subject: subjects) {
+            subjectName = subject.getName();
+            LinkedList<GradeComponent> gradeComponents = subject.getGradeComponents();
+            if (!subject.isNotEmpty()) {
+                jsonArray.put(subjectsToJson(subjectName));
+            }
+            for (GradeComponent component: gradeComponents) {
+                componentName = component.getName();
+                componentWeight = component.getComponentWeight();
+                LinkedList<Assignment> assignments = component.getAssignments();
+                if (assignments.isEmpty()) {
+                    jsonArray.put(componentsToJson(subjectName, componentName, componentWeight));
+                }
+                for (Assignment assignment: assignments) {
+                    assignmentName = assignment.getName();
+                    assignmentGrade = assignment.getGrade();
+                    jsonArray.put(assignmentsToJson(subjectName, componentName, componentWeight,
+                            assignmentName, assignmentGrade));
+                }
+            }
+        }
+        return jsonArray;
+    }
+
+    public JSONObject subjectsToJson(String subjectName) {
+        JSONObject assignmentJson = new JSONObject();
+        assignmentJson.put("subjectName", subjectName);
+        return assignmentJson;
+    }
+
+    public JSONObject componentsToJson(String subjectName, String componentName, int componentWeight) {
+        JSONObject assignmentJson = new JSONObject();
+        assignmentJson.put("subjectName", subjectName);
+        assignmentJson.put("componentName", componentName);
+        assignmentJson.put("componentWeight", componentWeight);
+        return assignmentJson;
+    }
+
+    public JSONObject assignmentsToJson(String subjectName, String componentName, int componentWeight,
+                                       String assignmentName, double assignmentGrade) {
+        JSONObject assignmentJson = new JSONObject();
+        assignmentJson.put("subjectName", subjectName);
+        assignmentJson.put("componentName", componentName);
+        assignmentJson.put("componentWeight", componentWeight);
+        assignmentJson.put("assignmentName", assignmentName);
+        assignmentJson.put("assignmentGrade", assignmentGrade);
+        return assignmentJson;
     }
 
 }

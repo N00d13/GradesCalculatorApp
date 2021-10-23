@@ -1,0 +1,28 @@
+{"assignments": [
+    {"subjectName": "math"},
+    {
+        "componentName": "quizez",
+        "componentWeight": 100,
+        "subjectName": "math"
+    },
+    {
+        "componentName": "assignments",
+        "componentWeight": 100,
+        "subjectName": "math"
+    },
+    {
+        "componentName": "iclicker",
+        "componentWeight": 100,
+        "assignmentGrade": 34,
+        "assignmentName": "iclicker 1",
+        "subjectName": "french"
+    },
+    {
+        "componentName": "iclicker",
+        "componentWeight": 100,
+        "assignmentGrade": 34,
+        "assignmentName": "Iclicker 2",
+        "subjectName": "french"
+    },
+    {"subjectName": "science"}
+]}

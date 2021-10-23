@@ -32,7 +32,7 @@ public class Subject {
         return average;
     }
 
-    //EFFECTS: Returns a string with the names of a subject separated by spaces
+    //EFFECTS: Returns a string with the names of components separated by spaces
     public String getComponentNames() {
         String componentNames = "";
         for (GradeComponent component: gradeComponents) {
@@ -83,6 +83,10 @@ public class Subject {
             }
         }
         return (this.length > 0 && allComponentsFull);
+    }
+
+    public LinkedList<GradeComponent> getGradeComponents() {
+        return this.gradeComponents;
     }
 
     //EFFECTS: returns the name of this subject
