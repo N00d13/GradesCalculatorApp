@@ -8,12 +8,6 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonReaderTest {
-//    private ClassList enrolledClasses;
-//
-//    @BeforeEach
-//    void runBefore(){
-//        enrolledClasses = new ClassList();
-//    }
 
     @Test
     void testFileNotExisting(){
@@ -28,8 +22,8 @@ public class JsonReaderTest {
     }
 
     @Test
-    void testEmptyJsonRead(){
-        JsonReader jsonReader = new JsonReader("./data/GradeCalculator Empty.json");
+    void testEmptyJsonReader(){
+        JsonReader jsonReader = new JsonReader("./data/GradeCalculatorEmpty.json");
         try{
             ClassList enrolledClasses = jsonReader.read();
             assertEquals(0, enrolledClasses.getLength());
@@ -39,20 +33,17 @@ public class JsonReaderTest {
     }
 
     @Test
-    void testJsonReadOne(){
-        JsonReader jsonReader = new JsonReader("./data/GradeCalculator TestOne.json");
+    void testJsonReaderOne(){
+        JsonReader jsonReader = new JsonReader("./data/GradeCalculatorTestOne.json");
         try{
             ClassList enrolledClasses = jsonReader.read();
             assertEquals(2, enrolledClasses.getLength());
 
             Subject subject = enrolledClasses.getSubject("math");
-
             assertEquals(2, subject.getLength());
             assertTrue(subject.containsComponent("quiz"));
             assertTrue(subject.containsComponent("tests"));
-
             GradeComponent component = subject.getComponent("quiz");
-
             assertEquals(2, component.getLength());
         } catch (IOException e) {
             fail("IOException should not have been thrown");
@@ -60,8 +51,8 @@ public class JsonReaderTest {
     }
 
     @Test
-    void testJsonReadTwo(){
-        JsonReader jsonReader = new JsonReader("./data/GradeCalculator TestTwo.json");
+    void testJsonReaderTwo(){
+        JsonReader jsonReader = new JsonReader("./data/GradeCalculatorTestTwo.json");
         try{
             ClassList enrolledClasses = jsonReader.read();
             assertEquals(2, enrolledClasses.getLength());
@@ -89,6 +80,18 @@ public class JsonReaderTest {
         }
     }
 
+    @Test
+    void testJsonReaderThree(){
+        JsonReader jsonReader = new JsonReader("./data/GradeCalculatorTestThree.json");
+        try{
+            ClassList enrolledClasses = jsonReader.read();
+            assertEquals(1, enrolledClasses.getLength());
 
+            Subject subject1 = enrolledClasses.getSubject("math");
+            assertEquals(2, subject1.getLength());
+        } catch (IOException e) {
+            fail("IOException should not have been thrown");
+        }
+    }
 
 }
