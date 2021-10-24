@@ -18,7 +18,7 @@ public class Subject {
 
     //MODIFIES: this
     //EFFECTS: adds a component to a subject and increases the length of the list by 1
-    public void addSubject(GradeComponent gradeComponent) {
+    public void addComponent(GradeComponent gradeComponent) {
         gradeComponents.add(gradeComponent);
         length++;
     }

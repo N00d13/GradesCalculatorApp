@@ -20,9 +20,9 @@ public class SubjectTest {
         GradeComponent component2 = new GradeComponent("quizzes", 30);
         GradeComponent component3 = new GradeComponent("tests", 50);
 
-        subject.addSubject(component1);
-        subject.addSubject(component2);
-        subject.addSubject(component3);
+        subject.addComponent(component1);
+        subject.addComponent(component2);
+        subject.addComponent(component3);
 
         assertEquals(subject.getLength(), 3);
     }
@@ -32,8 +32,8 @@ public class SubjectTest {
         GradeComponent component1 = new GradeComponent("homework", 60);
         GradeComponent component2 = new GradeComponent("quizzes", 40);
 
-        subject.addSubject(component1);
-        subject.addSubject(component2);
+        subject.addComponent(component1);
+        subject.addComponent(component2);
 
         Assignment assignment1 = new Assignment("homeworkOne", 86);
         Assignment assignment2 = new Assignment("homeworkTwo", 78);
@@ -58,8 +58,8 @@ public class SubjectTest {
         GradeComponent component1 = new GradeComponent("homework", 60);
         GradeComponent component2 = new GradeComponent("quizzes", 40);
 
-        subject.addSubject(component1);
-        subject.addSubject(component2);
+        subject.addComponent(component1);
+        subject.addComponent(component2);
         assertEquals(subject.getComponentNames(), " homework quizzes");
     }
 
@@ -70,8 +70,8 @@ public class SubjectTest {
         GradeComponent component1 = new GradeComponent("homework", 60);
         GradeComponent component2 = new GradeComponent("quizzes", 40);
 
-        subject.addSubject(component1);
-        subject.addSubject(component2);
+        subject.addComponent(component1);
+        subject.addComponent(component2);
 
         assertFalse(subject.containsComponent("tests"));
         assertTrue(subject.containsComponent("homework"));
@@ -83,8 +83,8 @@ public class SubjectTest {
         GradeComponent component1 = new GradeComponent("homework", 60);
         GradeComponent component2 = new GradeComponent("quizzes", 40);
 
-        subject.addSubject(component1);
-        subject.addSubject(component2);
+        subject.addComponent(component1);
+        subject.addComponent(component2);
 
         GradeComponent component3 = subject.getComponent("tests");
         GradeComponent component4 = subject.getComponent("homework");
@@ -100,10 +100,10 @@ public class SubjectTest {
         GradeComponent component1 = new GradeComponent("homework", 60);
         GradeComponent component2 = new GradeComponent("quizzes", 40);
 
-        subject.addSubject(component1);
+        subject.addComponent(component1);
         assertFalse(subject.isComponentWeight100());
 
-        subject.addSubject(component2);
+        subject.addComponent(component2);
         assertTrue(subject.isComponentWeight100());
     }
 
@@ -114,14 +114,14 @@ public class SubjectTest {
         GradeComponent component1 = new GradeComponent("homework", 60);
         GradeComponent component2 = new GradeComponent("quizzes", 40);
 
-        subject.addSubject(component1);
+        subject.addComponent(component1);
         assertFalse(subject.isNotEmpty());
 
         Assignment assignment1 = new Assignment("homeworkOne", 86);
         component1.addAssignment(assignment1);
         assertTrue(subject.isNotEmpty());
 
-        subject.addSubject(component2);
+        subject.addComponent(component2);
         assertFalse(subject.isNotEmpty());
 
         Assignment assignment2 = new Assignment("homeworkTwo", 78);
@@ -142,10 +142,10 @@ public class SubjectTest {
         GradeComponent component2 = new GradeComponent("quizzes", 30);
         GradeComponent component3 = new GradeComponent("tests", 50);
 
-        subject.addSubject(component1);
+        subject.addComponent(component1);
         assertEquals(subject.getLength(), 1);
 
-        subject.addSubject(component2);
+        subject.addComponent(component2);
         assertEquals(subject.getLength(), 2);
     }
 

@@ -19,8 +19,8 @@ public class ClassListTest {
         Subject subject1 = new Subject("math");
         Subject subject2 = new Subject("french");
 
-        enrolledClasses.addClass(subject1);
-        enrolledClasses.addClass(subject2);
+        enrolledClasses.addSubject(subject1);
+        enrolledClasses.addSubject(subject2);
         assertEquals(enrolledClasses.getLength(), 2);
     }
 
@@ -29,8 +29,8 @@ public class ClassListTest {
         Subject subject1 = new Subject("math");
         Subject subject2 = new Subject("french");
 
-        enrolledClasses.addClass(subject1);
-        enrolledClasses.addClass(subject2);
+        enrolledClasses.addSubject(subject1);
+        enrolledClasses.addSubject(subject2);
         assertEquals(enrolledClasses.getLength(), 2);
 
         enrolledClasses.removeClass(subject1);
@@ -40,12 +40,12 @@ public class ClassListTest {
     @Test
     public void testGetOverallAvg(){
         Subject subject1 = new Subject("math");
-        enrolledClasses.addClass(subject1);
+        enrolledClasses.addSubject(subject1);
         GradeComponent component1 = new GradeComponent("homework", 60);
         GradeComponent component2 = new GradeComponent("quizzes", 40);
 
-        subject1.addSubject(component1);
-        subject1.addSubject(component2);
+        subject1.addComponent(component1);
+        subject1.addComponent(component2);
         Assignment assignment1 = new Assignment("homeworkOne", 86);
         Assignment assignment2 = new Assignment("homeworkTwo", 78);
 
@@ -61,12 +61,12 @@ public class ClassListTest {
         assertTrue(average1>77.3 && average1<77.5);
 
         Subject subject2 = new Subject("");
-        enrolledClasses.addClass(subject2);
+        enrolledClasses.addSubject(subject2);
 
         GradeComponent component3 = new GradeComponent("tests", 80);
         GradeComponent component4 = new GradeComponent("quizzes", 20);
-        subject2.addSubject(component3);
-        subject2.addSubject(component4);
+        subject2.addComponent(component3);
+        subject2.addComponent(component4);
 
         Assignment assignment5 = new Assignment("testOne", 68);
         Assignment assignment6 = new Assignment("testTwo", 87);
@@ -89,8 +89,8 @@ public class ClassListTest {
         Subject subject1 = new Subject("math");
         Subject subject2 = new Subject("french");
 
-        enrolledClasses.addClass(subject1);
-        enrolledClasses.addClass(subject2);
+        enrolledClasses.addSubject(subject1);
+        enrolledClasses.addSubject(subject2);
         assertEquals(enrolledClasses.getSubjectNames(), " math french");
     }
 
@@ -101,8 +101,8 @@ public class ClassListTest {
         Subject subject1 = new Subject("math");
         Subject subject2 = new Subject("french");
 
-        enrolledClasses.addClass(subject1);
-        enrolledClasses.addClass(subject2);
+        enrolledClasses.addSubject(subject1);
+        enrolledClasses.addSubject(subject2);
 
         assertTrue(enrolledClasses.containsSubject("math"));
         assertTrue(enrolledClasses.containsSubject("french"));
@@ -117,8 +117,8 @@ public class ClassListTest {
         Subject subject1 = new Subject("math");
         Subject subject2 = new Subject("french");
 
-        enrolledClasses.addClass(subject1);
-        enrolledClasses.addClass(subject2);
+        enrolledClasses.addSubject(subject1);
+        enrolledClasses.addSubject(subject2);
 
         Subject subjectTest2 = enrolledClasses.getSubject("math");
         assertEquals(subjectTest2.getName(), "math");
@@ -135,24 +135,24 @@ public class ClassListTest {
         Subject subject1 = new Subject("math");
         Subject subject2 = new Subject("french");
 
-        enrolledClasses.addClass(subject1);
+        enrolledClasses.addSubject(subject1);
         GradeComponent component1 = new GradeComponent("homework", 60);
         GradeComponent component2 = new GradeComponent("quizzes", 40);
 
-        subject1.addSubject(component1);
+        subject1.addComponent(component1);
         assertFalse(enrolledClasses.isSubjectWeight100());
 
-        subject1.addSubject(component2);
+        subject1.addComponent(component2);
         assertTrue(enrolledClasses.isSubjectWeight100());
 
-        enrolledClasses.addClass(subject2);
+        enrolledClasses.addSubject(subject2);
         GradeComponent component3 = new GradeComponent("tests", 89);
         GradeComponent component4 = new GradeComponent("quizzes", 11);
 
         assertFalse(enrolledClasses.isSubjectWeight100());
 
-        subject2.addSubject(component3);
-        subject2.addSubject(component4);
+        subject2.addComponent(component3);
+        subject2.addComponent(component4);
         assertTrue(enrolledClasses.isSubjectWeight100());
     }
 
@@ -163,20 +163,20 @@ public class ClassListTest {
         Subject subject1 = new Subject("math");
         Subject subject2 = new Subject("french");
 
-        enrolledClasses.addClass(subject1);
-        enrolledClasses.addClass(subject2);
+        enrolledClasses.addSubject(subject1);
+        enrolledClasses.addSubject(subject2);
 
         GradeComponent component1 = new GradeComponent("homework", 60);
         GradeComponent component2 = new GradeComponent("quizzes", 40);
 
-        subject1.addSubject(component1);
-        subject1.addSubject(component1);
+        subject1.addComponent(component1);
+        subject1.addComponent(component1);
 
         GradeComponent component3 = new GradeComponent("tests", 89);
         GradeComponent component4 = new GradeComponent("quizzes", 11);
 
-        subject2.addSubject(component3);
-        subject2.addSubject(component4);
+        subject2.addComponent(component3);
+        subject2.addComponent(component4);
 
         Assignment assignment1 = new Assignment("mathHomeworkOne", 96);
         Assignment assignment2 = new Assignment("mathQuizOne", 87);
@@ -199,8 +199,8 @@ public class ClassListTest {
         Subject subject1 = new Subject("math");
         Subject subject2 = new Subject("french");
 
-        enrolledClasses.addClass(subject1);
-        enrolledClasses.addClass(subject2);
+        enrolledClasses.addSubject(subject1);
+        enrolledClasses.addSubject(subject2);
         assertEquals(enrolledClasses.getLength(), 2);
 
         enrolledClasses.removeClass(subject1);

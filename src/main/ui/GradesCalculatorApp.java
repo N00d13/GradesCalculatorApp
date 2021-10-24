@@ -1,6 +1,7 @@
 package ui;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import persistence.JsonWriter;
 import persistence.JsonReader;
@@ -10,15 +11,15 @@ import model.Subject;
 import model.GradeComponent;
 import model.Assignment;
 
-import persistence.JsonWriter;
 
 //Grades calculator application
 public class GradesCalculatorApp {
     private ClassList enrolledClasses; //ClassList object containing all classes enrolled in
     private Scanner input; //Scanner to check user input
     private boolean continueProgram; //Boolean if application should continue running
-    private JsonWriter fileWriter;
     private static final String FILE_SAVE_LOCATION = "./data/GradeCalculator.json";
+    private JsonWriter fileWriter;
+    private JsonReader fileReader;
 
     //EFFECTS: runs grades calculator application
     public GradesCalculatorApp() {
@@ -32,6 +33,7 @@ public class GradesCalculatorApp {
         enrolledClasses = new ClassList();
         continueProgram = true;
         fileWriter = new JsonWriter(FILE_SAVE_LOCATION);
+        fileReader = new JsonReader(FILE_SAVE_LOCATION);
     }
 
     //EFFECTS: loops asking user for input options
@@ -58,6 +60,7 @@ public class GradesCalculatorApp {
         System.out.println("(e) Remove a class");
         System.out.println("(f) End the program");
         System.out.println("(g) Save File");
+        System.out.println("(h) Load File");
     }
 
     //MODIFIES: this
@@ -78,6 +81,8 @@ public class GradesCalculatorApp {
             continueProgram = false;
         } else if (inputSelected.equals("g")) {
             saveFile();
+        } else if (inputSelected.equals("h")) {
+            loadFile();
         } else {
             System.out.println("That is not an option, pick one of the choices");
         }
@@ -94,7 +99,7 @@ public class GradesCalculatorApp {
         System.out.println("What is the name of the class you're enrolled in?");
         String subjectName = input.nextLine();
         Subject newSubject = new Subject(subjectName);
-        enrolledClasses.addClass(newSubject);
+        enrolledClasses.addSubject(newSubject);
         System.out.println("The class " + subjectName + " was added to your enrolled classes.");
         System.out.println("Your class list is now: ");
         System.out.println(enrolledClasses.getSubjectNames());
@@ -114,7 +119,7 @@ public class GradesCalculatorApp {
         if (subjectSelected.getName().equals("stubClass")) {
             return;
         }
-        subjectSelected.addSubject(newComponent);
+        subjectSelected.addComponent(newComponent);
         System.out.println("You have successfully added the component: " + componentName);
         System.out.println("The updated components in this class are:");
         System.out.println(subjectSelected.getComponentNames());
@@ -222,6 +227,15 @@ public class GradesCalculatorApp {
             System.out.println("Successfully saved Grade Calculator to a file");
         } catch (FileNotFoundException e) {
             System.out.println("There is no saved file");
+        }
+    }
+
+    public void loadFile() {
+        try {
+            enrolledClasses = fileReader.read();
+            System.out.println("Successfully loaded Grade Calculator saved information");
+        } catch (IOException e) {
+            System.out.println("The file is not compatible");
         }
     }
 

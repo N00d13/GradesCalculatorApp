@@ -20,7 +20,7 @@ public class ClassList {
 
     //MODIFIES: this
     //EFFECTS: adds a subject to subjects and increases length by 1
-    public void addClass(Subject subject) {
+    public void addSubject(Subject subject) {
         subjects.add(subject);
         length++;
     }
