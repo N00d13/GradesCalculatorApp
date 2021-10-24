@@ -1,0 +1,23 @@
+{"assignments": [
+    {"subjectName": "math"},
+    {
+        "componentName": "quiz",
+        "componentWeight": 40,
+        "assignmentGrade": 78,
+        "assignmentName": "quizOne",
+        "subjectName": "math"
+    },
+    {
+        "componentName": "quiz",
+        "componentWeight": 40,
+        "assignmentGrade": 89,
+        "assignmentName": "quizTwo",
+        "subjectName": "math"
+    },
+    {
+        "componentName": "tests",
+        "componentWeight": 60,
+        "subjectName": "math"
+    },
+    {"subjectName": "french"}
+]}
