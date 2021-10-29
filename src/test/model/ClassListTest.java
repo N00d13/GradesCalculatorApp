@@ -1,8 +1,15 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.JsonReader;
+import persistence.JsonWriter;
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 
 public class ClassListTest {
     private ClassList enrolledClasses;
@@ -207,5 +214,26 @@ public class ClassListTest {
         assertEquals(enrolledClasses.getLength(), 1);
     }
 
+    @Test
+    public void testToJson(){
+        Subject subjectMath = new Subject("Math");
+        GradeComponent componentTest = new GradeComponent("Tests", 100);
+        Assignment testOne = new Assignment("testOne", 67);
+
+        enrolledClasses.addSubject(subjectMath);
+        JSONArray arrayToJson1 = enrolledClasses.arrayToJson("Math","", 0, "", 0.0);
+        assertTrue(!arrayToJson1.isEmpty());
+
+        subjectMath.addComponent(componentTest);
+        JSONArray arrayToJson2 = enrolledClasses.arrayToJson("Math","Tests", 100, "", 0.0);
+        assertTrue(!arrayToJson2.isEmpty());
+
+        componentTest.addAssignment(testOne);
+        JSONArray arrayToJson3 = enrolledClasses.arrayToJson("Math","Tests", 100, "testOne", 67);
+        assertTrue(!arrayToJson3.isEmpty());
+
+        System.out.println(arrayToJson2.toString());
+
+    }
 
 }
