@@ -115,6 +115,7 @@ public class ClassList {
         jsonObject.put("assignments", jsonArray);
         return jsonObject;
     }
+
     //EFFECTS: Writes an array of json Object and returns it
     public JSONArray arrayToJson(String subjectName, String componentName, int componentWeight,
                                  String assignmentName, double assignmentGrade) {
