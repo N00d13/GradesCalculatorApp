@@ -1,13 +1,7 @@
-{"assignments": [
-    {"subjectName": "math"},
-    {
-        "componentName": "quizzes",
-        "componentWeight": 30,
-        "subjectName": "math"
-    },
-    {
-        "componentName": "tests",
-        "componentWeight": 70,
-        "subjectName": "math"
-    }
-]}
+{"assignments": [{
+    "componentName": "test",
+    "componentWeight": 100,
+    "assignmentGrade": 89,
+    "assignmentName": "testOne",
+    "subjectName": "math"
+}]}

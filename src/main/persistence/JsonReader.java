@@ -13,19 +13,23 @@ import java.util.stream.Stream;
 
 import org.json.*;
 
+//Represents a json reader that stores information from a json file to classList
 public class JsonReader {
-    private String fileLocation;
+    private String fileLocation; //File location where json object is stored
 
+    //EFFECTS: constructs JsonReader with the file location
     public JsonReader(String fileLocation) {
         this.fileLocation = fileLocation;
     }
 
+    //EFFECTS: reads a json file and returns a class list
     public ClassList read() throws IOException {
         String jsonTextData = readFile(fileLocation);
         JSONObject jsonObject = new JSONObject(jsonTextData);
         return getClassList(jsonObject);
     }
 
+    //EFFECTS: Reads json file text and return a string of it
     private String readFile(String textData) throws IOException {
         StringBuilder jsonString = new StringBuilder();
 
@@ -35,6 +39,7 @@ public class JsonReader {
         return jsonString.toString();
     }
 
+    //EFFECTS: Adds every object from a json object to a class list and returns it
     private ClassList getClassList(JSONObject jsonObject) {
         ClassList enrolledClasses = new ClassList();
         JSONArray jsonArray = jsonObject.getJSONArray("assignments");
@@ -46,7 +51,7 @@ public class JsonReader {
     }
 
     //MODIFIES: enrolledClasses
-    //EFFECTS:
+    //EFFECTS: Checks if a json object has certain object components
     private void addClassComponent(ClassList enrolledClasses, JSONObject jsonObject) {
         if (jsonObject.has("assignmentName")) {
             addAssignmentComponent(enrolledClasses, jsonObject);
@@ -58,7 +63,7 @@ public class JsonReader {
     }
 
     //MODIFIES: enrolledClasses
-    //EFFECTS:
+    //EFFECTS: Reads a json object and stores all information as fields
     private void addAssignmentComponent(ClassList enrolledClasses, JSONObject jsonObject) {
         String sbName = jsonObject.getString("subjectName");
         String cpName = jsonObject.getString("componentName");
@@ -69,7 +74,7 @@ public class JsonReader {
     }
 
     //MODIFIES: enrolledClasses
-    //EFFECTS:
+    //EFFECTS: Adds the subject, grade component and assignment from a json object to enrolled classes
     private void addAssignment(ClassList enrolledClasses, String subjectName,
                                String componentName, int componentWeight, String assignmentName,
                                double assignmentGrade) {
@@ -96,7 +101,7 @@ public class JsonReader {
     }
 
     //MODIFIES: enrolledClasses
-    //EFFECTS:
+    //EFFECTS: Reads a json object and stores the subject and component information as fields
     private void addGradeComponent(ClassList enrolledClasses, JSONObject jsonObject) {
         String sbName = jsonObject.getString("subjectName");
         String cpName = jsonObject.getString("componentName");
@@ -105,7 +110,7 @@ public class JsonReader {
     }
 
     //MODIFIES: enrolledClasses
-    //EFFECTS:
+    //EFFECTS: Adds the subject and grade component from a json object to enrolled classes
     private void addComponent(ClassList enrolledClasses, String subjectName,
                               String componentName, int componentWeight) {
         if (enrolledClasses.containsSubject(subjectName)) {
@@ -123,14 +128,14 @@ public class JsonReader {
     }
 
     //MODIFIES: enrolledClasses
-    //EFFECTS:
+    //EFFECTS: Reads a json object and stores the subject information as fields
     private void addSubjectComponent(ClassList enrolledClasses, JSONObject jsonObject) {
         String sbName = jsonObject.getString("subjectName");
         addSubject(enrolledClasses, sbName);
     }
 
     //MODIFIES: enrolledClasses
-    //EFFECTS:
+    //EFFECTS: Adds the subject from a json object to enrolled classes
     private void addSubject(ClassList enrolledClasses, String subjectName) {
         if (!enrolledClasses.containsSubject(subjectName)) {
             Subject subject = new Subject(subjectName);

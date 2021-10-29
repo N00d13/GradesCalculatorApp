@@ -22,3 +22,7 @@ These are some examples how the application can be used.
 - As a user, I want to be able to save my added classes, grade components and assignments to a file
 - As a user, I want to be able to load my classes, grade components and assignments from a file
 
+Citation:
+Some of the code from JsonWriter and JsonReader includes modified methods from the GiHub project:
+https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+

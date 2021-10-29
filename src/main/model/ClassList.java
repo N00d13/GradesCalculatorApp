@@ -115,7 +115,7 @@ public class ClassList {
         jsonObject.put("assignments", jsonArray);
         return jsonObject;
     }
-
+    //EFFECTS: Writes an array of json Object and returns it
     public JSONArray arrayToJson(String subjectName, String componentName, int componentWeight,
                                  String assignmentName, double assignmentGrade) {
         JSONArray jsonArray = new JSONArray();
@@ -143,12 +143,14 @@ public class ClassList {
         return jsonArray;
     }
 
+    //EFFECTS: Writes a subject to Json object and returns it
     public JSONObject subjectsToJson(String subjectName) {
         JSONObject assignmentJson = new JSONObject();
         assignmentJson.put("subjectName", subjectName);
         return assignmentJson;
     }
 
+    //EFFECTS: Writes a subject and grade component to a json  object and returns it
     public JSONObject componentsToJson(String subjectName, String componentName, int componentWeight) {
         JSONObject assignmentJson = new JSONObject();
         assignmentJson.put("subjectName", subjectName);
@@ -157,6 +159,7 @@ public class ClassList {
         return assignmentJson;
     }
 
+    //EFFECTS: Writes a subject, component and assignment to a json object and returns it
     public JSONObject assignmentsToJson(String subjectName, String componentName, int componentWeight,
                                        String assignmentName, double assignmentGrade) {
         JSONObject assignmentJson = new JSONObject();
