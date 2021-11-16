@@ -23,15 +23,28 @@ public class GradeComponent {
         length++;
     }
 
-    //REQUIRES: length > 0
-    //EFFECTS: returns the weighed average of a component
+    //EFFECTS: returns the weighed average of a component. If no assignments in component then returns -1
     public double getComponentWeightedAverage() {
+        if (length == 0) {
+            return -1.0;
+        }
         double average = 0;
         for (Assignment assignment: assignments) {
             average += assignment.getGrade();
         }
         double componentWeightDouble = (double)componentWeight * 0.01;
         return (average / length) * (componentWeightDouble);
+    }
+
+    public double getComponentAverage() {
+        if (length == 0) {
+            return -1.0;
+        }
+        double average = 0;
+        for (Assignment assignment: assignments) {
+            average += assignment.getGrade();
+        }
+        return average / length;
     }
 
     //EFFECTS: Returns a string with all the assignment names separated with a space
@@ -61,7 +74,4 @@ public class GradeComponent {
     public LinkedList<Assignment> getAssignments() {
         return this.assignments;
     }
-
-
-
 }

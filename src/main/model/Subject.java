@@ -23,11 +23,41 @@ public class Subject {
         length++;
     }
 
-    //EFFECTS: returns the average of this subject
+    //REQUIRES: Sum of grade component weight <= 100
+    //EFFECTS: returns the average of this subject. If no components in subject then returns -1.
+    //         If no components contain an assignment the returns -2
     public double getSubjectAverage() {
-        double average = 0;
+        if (length == 0) {
+            return -1.0;
+        }
+        LinkedList<GradeComponent> activeComponents = new LinkedList<GradeComponent>();
         for (GradeComponent component: gradeComponents) {
-            average += component.getComponentWeightedAverage();
+            if (component.getLength() != -1) {
+                activeComponents.add(component);
+            }
+        }
+        if (activeComponents.size() == 0) {
+            return -2;
+        }
+        int totalWeight = 0;
+        int weightLeft = 0;
+        for (GradeComponent component: activeComponents) {
+            totalWeight += component.getComponentWeight();
+        }
+        weightLeft = 100 - totalWeight;
+        int addedWeight = weightLeft / activeComponents.size();
+        return getTotalAverage(activeComponents, weightLeft, addedWeight);
+    }
+
+    private double getTotalAverage(LinkedList<GradeComponent> activeComponents, int weightLeft, int addedWeight) {
+        double average = 0.0;
+        for (GradeComponent component: activeComponents) {
+            if (weightLeft > 0) {
+                average += component.getComponentAverage() * ((0.01)
+                        * (component.getComponentWeight() + addedWeight));
+            } else {
+                average += component.getComponentAverage() * ((0.01) * (component.getComponentWeight()));
+            }
         }
         return average;
     }
@@ -98,4 +128,6 @@ public class Subject {
     public int getLength() {
         return this.length;
     }
+
+
 }

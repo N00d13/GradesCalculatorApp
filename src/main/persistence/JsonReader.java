@@ -142,8 +142,4 @@ public class JsonReader {
             enrolledClasses.addSubject(subject);
         }
     }
-
-
-
-
 }

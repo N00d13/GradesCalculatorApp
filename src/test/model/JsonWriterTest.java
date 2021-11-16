@@ -66,6 +66,4 @@ public class JsonWriterTest {
             fail("IOException should not have been thrown");
         }
     }
-
-
 }

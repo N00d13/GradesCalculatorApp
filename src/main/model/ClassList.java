@@ -34,13 +34,26 @@ public class ClassList {
     }
 
     //REQUIRES: length > 0
-    //EFFECTS: returns a double with the average of all subjects
+    //EFFECTS: returns a double with the average of all subjects. If no subjects added then returns -1
+    //         If no subject have an assignment, returns -2
     public double getOverallAverage() {
-        double average = 0;
+        if (length == 0) {
+            return -1;
+        }
+        LinkedList<Subject> activeSubjects = new LinkedList<>();
         for (Subject subject: subjects) {
+            if (subject.getSubjectAverage() != 2 && subject.getSubjectAverage() != -1) {
+                activeSubjects.add(subject);
+            }
+        }
+        if (activeSubjects.isEmpty()) {
+            return -2;
+        }
+        double average = 0;
+        for (Subject subject: activeSubjects) {
             average += subject.getSubjectAverage();
         }
-        return average / length;
+        return average / activeSubjects.size();
     }
 
     //EFFECTS: returns a string of all classes separated by spaces

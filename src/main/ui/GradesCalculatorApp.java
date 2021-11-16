@@ -57,14 +57,18 @@ public class GradesCalculatorApp {
         System.out.println("(b) Add a new class component");
         System.out.println("(c) Add a new assignment");
         System.out.println("(d) Find your overall average");
-        System.out.println("(e) Remove a class");
-        System.out.println("(f) End the program");
-        System.out.println("(g) Save File");
-        System.out.println("(h) Load File");
+        System.out.println("(e) Find Class Average");
+        System.out.println("(f) Find Component Average");
+        System.out.println("(g) Remove a class");
+        System.out.println("(h) End the program");
+        System.out.println("(i) Save File");
+        System.out.println("(j) Load File");
+
     }
 
     //MODIFIES: this
     //EFFECTS: processes input of user
+    @SuppressWarnings("methodlength")
     public void chooseOptions() {
         String inputSelected = input.nextLine();
         if (inputSelected.equals("a")) {
@@ -76,12 +80,16 @@ public class GradesCalculatorApp {
         } else if (inputSelected.equals("d")) {
             printTotalAverage();
         } else if (inputSelected.equals("e")) {
-            removeAClass();
+            printSubjectAverage();
         } else if (inputSelected.equals("f")) {
-            continueProgram = false;
+            printComponentAverage();
         } else if (inputSelected.equals("g")) {
-            saveFile();
+            removeAClass();
         } else if (inputSelected.equals("h")) {
+            continueProgram = false;
+        } else if (inputSelected.equals("i")) {
+            saveFile();
+        } else if (inputSelected.equals("j")) {
             loadFile();
         } else {
             System.out.println("That is not an option, pick one of the choices");
@@ -116,6 +124,14 @@ public class GradesCalculatorApp {
         input.nextLine();
         GradeComponent newComponent = new GradeComponent(componentName, componentWeight);
         Subject subjectSelected = selectClass();
+        int totalWeight = 0;
+        for (GradeComponent component: subjectSelected.getGradeComponents()) {
+            totalWeight += component.getComponentWeight();
+        }
+        if (totalWeight + componentWeight > 100) {
+            System.out.println("The sum of component weights cannot pass 100");
+            return;
+        }
         if (subjectSelected.getName().equals("stubClass")) {
             return;
         }
@@ -184,21 +200,46 @@ public class GradesCalculatorApp {
 
     //EFFECTS: prints the overall average of all classes enrolled in
     public void printTotalAverage() {
-        if (!enrolledClasses.isNotEmpty()) {
-            if (enrolledClasses.getLength() == 0) {
-                System.out.println("You have no class to calculate the average");
-                return;
-            }
-            System.out.println("One of your components or classes contains no assignments");
+        if (enrolledClasses.getOverallAverage() == -1) {
+            System.out.println("You have no classes to calculate the average");
+            return;
+        } else if (enrolledClasses.getOverallAverage() == -2) {
+            System.out.println("None of your classes have an assignment added");
             return;
         }
-        if (!enrolledClasses.isSubjectWeight100()) {
-            System.out.println("One of your component weights for a class is not adding to 100");
-            return;
-        }
+//      System.out.println("One of your components or classes contains no assignments");
+//      return;
         double average = enrolledClasses.getOverallAverage();
         System.out.println("Your overall average is: " + average);
     }
+
+    public void printSubjectAverage() {
+        Subject selectedSubject = selectClass();
+        if (selectedSubject.getSubjectAverage() == -1.0) {
+            System.out.println("There are no grade components in this class so the average cannot be calculated");
+            return;
+        } else if (selectedSubject.getSubjectAverage() == -2.0) {
+            System.out.println("There are no grade components with assignments so the average cannot be calculated");
+            return;
+        }
+        System.out.println("Your subject average for " + selectedSubject.getName() + "is:");
+        System.out.println(selectedSubject.getSubjectAverage());
+    }
+
+    public void printComponentAverage() {
+        Subject selectedSubject = selectClass();
+        GradeComponent selectedComponent = selectGradeComponent(selectedSubject);
+        if (selectedComponent.getName() == "stubComponent") {
+            return;
+        }
+        if (selectedComponent.getComponentAverage() == -1) {
+            System.out.println("there are no assignments to calculate the grade of");
+            return;
+        }
+        System.out.println("Your component average for " + selectedComponent.getName() + " is:");
+        System.out.println(selectedComponent.getComponentAverage());
+    }
+
 
     //MODIFIES: this
     //EFFECTS: removes a class from the class list
@@ -238,5 +279,4 @@ public class GradesCalculatorApp {
             System.out.println("The file is not compatible");
         }
     }
-
 }
