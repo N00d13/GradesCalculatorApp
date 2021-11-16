@@ -47,12 +47,19 @@ public class ClassListTest {
     @Test
     public void testGetOverallAvg(){
         Subject subject1 = new Subject("math");
+
+        assertEquals(subject1.getSubjectAverage(), -1);
+
         enrolledClasses.addSubject(subject1);
         GradeComponent component1 = new GradeComponent("homework", 60);
         GradeComponent component2 = new GradeComponent("quizzes", 40);
 
+
         subject1.addComponent(component1);
         subject1.addComponent(component2);
+
+        assertEquals(subject1.getSubjectAverage(),-2);
+
         Assignment assignment1 = new Assignment("homeworkOne", 86);
         Assignment assignment2 = new Assignment("homeworkTwo", 78);
 
@@ -86,6 +93,11 @@ public class ClassListTest {
         component4.addAssignment(assignment8);
 
         double average2 = enrolledClasses.getOverallAverage();
+        assertTrue(average2>78.04 && average2<78.06);
+
+        Subject subject3 = new Subject("");
+        enrolledClasses.addSubject(subject3);
+
         assertTrue(average2>78.04 && average2<78.06);
     }
 

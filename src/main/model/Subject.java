@@ -32,12 +32,12 @@ public class Subject {
         }
         LinkedList<GradeComponent> activeComponents = new LinkedList<GradeComponent>();
         for (GradeComponent component: gradeComponents) {
-            if (component.getLength() != -1) {
+            if (component.getLength() != 0) {
                 activeComponents.add(component);
             }
         }
-        if (activeComponents.size() == 0) {
-            return -2;
+        if (activeComponents.isEmpty()) {
+            return -2.0;
         }
         int totalWeight = 0;
         int weightLeft = 0;

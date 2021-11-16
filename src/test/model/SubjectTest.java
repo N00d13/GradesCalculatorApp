@@ -29,11 +29,15 @@ public class SubjectTest {
 
     @Test
     public void testGetSubjectAvg(){
+        assertEquals(subject.getSubjectAverage(),-1.0);
+
         GradeComponent component1 = new GradeComponent("homework", 60);
         GradeComponent component2 = new GradeComponent("quizzes", 40);
 
         subject.addComponent(component1);
         subject.addComponent(component2);
+
+        assertEquals(subject.getSubjectAverage(),-2.0);
 
         Assignment assignment1 = new Assignment("homeworkOne", 86);
         Assignment assignment2 = new Assignment("homeworkTwo", 78);
@@ -48,6 +52,23 @@ public class SubjectTest {
         component2.addAssignment(assignment4);
 
         double average = subject.getSubjectAverage();
+        assertTrue(average>77.3 && average<77.5);
+
+        Subject subject2 = new Subject("science");
+
+        GradeComponent component3 = new GradeComponent("homework", 60);
+        GradeComponent component4 = new GradeComponent("quizzes", 20);
+
+        subject2.addComponent(component3);
+        subject2.addComponent(component4);
+
+        component3.addAssignment(assignment1);
+        component3.addAssignment(assignment2);
+
+        component4.addAssignment(assignment3);
+        component4.addAssignment(assignment4);
+
+        double average2 = subject2.getSubjectAverage();
         assertTrue(average>77.3 && average<77.5);
     }
 

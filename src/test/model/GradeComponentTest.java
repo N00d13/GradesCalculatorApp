@@ -26,6 +26,8 @@ public class GradeComponentTest {
 
     @Test
     public void testGetCompWeightAvg() {
+        assertEquals(component.getComponentWeightedAverage(), -1);
+
         Assignment assignment1 = new Assignment("quizOne", 86);
         Assignment assignment2 = new Assignment("quizTwo", 78);
 
@@ -35,6 +37,21 @@ public class GradeComponentTest {
         double weightedAverage = component.getComponentWeightedAverage();
 
         assertTrue(weightedAverage>32.7 && weightedAverage < 32.9);
+    }
+
+    @Test
+    public void testGetCompAvg(){
+        assertEquals(component.getComponentAverage(),-1);
+
+        Assignment assignment1 = new Assignment("quizOne", 86);
+        Assignment assignment2 = new Assignment("quizTwo", 78);
+
+        component.addAssignment(assignment1);
+        component.addAssignment(assignment2);
+
+        double average = component.getComponentAverage();
+
+        assertTrue(average>81.9 && average < 82.1);
     }
 
     @Test

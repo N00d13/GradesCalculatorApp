@@ -42,7 +42,7 @@ public class ClassList {
         }
         LinkedList<Subject> activeSubjects = new LinkedList<>();
         for (Subject subject: subjects) {
-            if (subject.getSubjectAverage() != 2 && subject.getSubjectAverage() != -1) {
+            if (subject.getSubjectAverage() != -2 && subject.getSubjectAverage() != -1) {
                 activeSubjects.add(subject);
             }
         }
