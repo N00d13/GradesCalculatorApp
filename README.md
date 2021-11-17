@@ -17,6 +17,8 @@ These are some examples how the application can be used.
 - As a user, I want to be able to create a new class that I am enrolled in
 - As a user, I want to be able to create a new grade component for a class I am enrolled in
 - As a user, I want to be able to input an assignment and grade I just received from my teacher
+- As a user, I want to be able to find my class component average
+- As a user, I want to be able to find my average from one class
 - As a user, I want to be able to find my overall average from all my classes
 - As a user, I want to be able to remove a class that I am no longer part of
 - As a user, I want to be able to save my added classes, grade components and assignments to a file
