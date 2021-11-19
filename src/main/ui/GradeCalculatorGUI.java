@@ -27,7 +27,7 @@ public class GradeCalculatorGUI extends JPanel {
     private JMenuBar menuBar; //Menu Bar
     private JTabbedPane leftTabs; //Tabs on left side of GUI
     private MainPage mainPage; //Home Page
-    private static final String FILE_SAVE_LOCATION = "./data/GradeCalculator.json"; //Save Location of save and load file
+    private static final String FILE_SAVE_LOCATION = "./data/GradeCalculator.json"; //Save Location file
     private JsonWriter fileWriter; //File Writer
     private JsonReader fileReader; //File Reader
     private ClassList enrolledClasses; //ClassList object containing subjects enrolled in
