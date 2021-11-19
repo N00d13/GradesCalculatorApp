@@ -207,8 +207,6 @@ public class GradesCalculatorApp {
             System.out.println("None of your classes have an assignment added");
             return;
         }
-//      System.out.println("One of your components or classes contains no assignments");
-//      return;
         double average = enrolledClasses.getOverallAverage();
         System.out.println("Your overall average is: " + average);
     }

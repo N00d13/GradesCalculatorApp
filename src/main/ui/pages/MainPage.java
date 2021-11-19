@@ -1,21 +1,25 @@
-package ui;
+package ui.pages;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import model.ClassList;
 import model.Subject;
+import ui.pages.SubjectPage;
 
 public class MainPage extends JPanel {
-    JButton addCourseBtn;
-    JTextField addCourseBox;
-    JTabbedPane leftTabs;
-    ClassList enrolledClasses;
+    private JButton addCourseBtn;
+    private JTextField addCourseBox;
+    private JTabbedPane leftTabs;
+    private ClassList enrolledClasses;
+    private JFrame frame;
 
 
-    MainPage(JTabbedPane leftTabs, ClassList enrolledClasses) {
+
+    public MainPage(JTabbedPane leftTabs, ClassList enrolledClasses,JFrame frame) {
         this.leftTabs = leftTabs;
         this.enrolledClasses = enrolledClasses;
+        this.frame = frame;
         runMainPage();
     }
 
@@ -74,8 +78,13 @@ public class MainPage extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String subjectName = addCourseBox.getText();
                 addCourseBox.setText("");
-                leftTabs.addTab(subjectName, new JPanel());
 
+                SubjectPage subjectPane = new SubjectPage(frame, subjectName, enrolledClasses);
+                subjectPane.setLayout(new BoxLayout(subjectPane,BoxLayout.Y_AXIS));
+
+                JScrollPane scrollPane = new JScrollPane(subjectPane);
+
+                leftTabs.addTab(subjectName, scrollPane);
 
                 Subject newSubject = new Subject(subjectName);
                 enrolledClasses.addSubject(newSubject);

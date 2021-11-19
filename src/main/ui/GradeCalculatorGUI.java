@@ -5,9 +5,7 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
 import java.awt.*;
 
 import model.ClassList;
-import model.Subject;
-import model.GradeComponent;
-import model.Assignment;
+import ui.pages.MainPage;
 
 
 import static java.awt.Color.*;
@@ -28,6 +26,9 @@ public class GradeCalculatorGUI extends JPanel {
     // Vertical Buttons: https://stackoverflow.com/questions/52879606/how-to-make-a-vertical-line-of-buttons-from-the-left-side-of-the-frame
     // Vertical Tabs: https://www.onlinetutorialspoint.com/java/java-swing-jtabbedpane-example.html
     // Colour from image: https://www.ginifab.com/feeds/pms/color_picker_from_image.php
+    // Add to a JList http://www.seasite.niu.edu/cs580java/JList_Basics.htm
+    // Create progress Circle
+
 
     public GradeCalculatorGUI() {
         runGradeCalculatorGUI();
@@ -68,7 +69,7 @@ public class GradeCalculatorGUI extends JPanel {
 
     private void createLeftTabs() {
         leftTabs = new JTabbedPane(JTabbedPane.LEFT, JTabbedPane.SCROLL_TAB_LAYOUT);
-        mainPage = new MainPage(leftTabs, enrolledClasses);
+        mainPage = new MainPage(leftTabs, enrolledClasses, frame);
         leftTabs.addTab("     Home     ", mainPage);
 
         //Colour Style:
