@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 import java.io.IOException;
+import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -145,6 +146,14 @@ public class ClassListTest {
         assertEquals(subjectTest3.getName(), "french");
         Subject subjectTest4 = enrolledClasses.getSubject("science");
         assertEquals(subjectTest4.getName(), "NotRealSubject");
+    }
+
+    @Test
+    public void testGetSubjects() {
+        LinkedList<Subject> subjects = enrolledClasses.getSubjects();
+        assertTrue(subjects.isEmpty());
+        enrolledClasses.addSubject(new Subject("Math"));
+        assertEquals(subjects.size(), 1);
     }
 
     @Test

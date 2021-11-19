@@ -10,9 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import java.util.Random;
-
+import java.util.LinkedList;
 
 public class SubjectPage extends JPanel {
     private JPanel averagePanel;
@@ -29,11 +27,6 @@ public class SubjectPage extends JPanel {
     private ClassList enrolledClasses;
 
     private JProgressBar progressCircle;
-
-
-
-
-
 
     public SubjectPage(JFrame frame, String subjectName, ClassList enrolledClasses) {
         this.frame = frame;
@@ -63,9 +56,9 @@ public class SubjectPage extends JPanel {
         progressCircle.setBorder(BorderFactory.createEmptyBorder(8,8,8,8));
         progressCircle.setStringPainted(true);
         progressCircle.setFont(progressCircle.getFont().deriveFont(24F));
-        progressCircle.setForeground(new Color(91, 134, 85));
+        progressCircle.setForeground(new Color(127, 178, 121));
 
-        progressCircle.setValue(4);
+        progressCircle.setValue(0);
 
 
         JPanel progressPanel = new JPanel();
@@ -128,7 +121,7 @@ public class SubjectPage extends JPanel {
         weightWarningPanel.add(weightWarning);
 
         componentForm.add(componentInputForm);
-        componentForm.setPreferredSize(new Dimension(600,100));
+        componentForm.setPreferredSize(new Dimension(600,250));
 
         componentForm.add(weightWarning, BorderLayout.NORTH);
 
@@ -156,30 +149,33 @@ public class SubjectPage extends JPanel {
                     componentWeightTxt.setText("");
                     return;
                 }
-                addComponentList();
-                progressCircle.setValue(enrolledClasses.getSubject(subjectName).getLength());
-                progressCircle.setUI(new AverageProgressCircle());
-                System.out.println(enrolledClasses.getSubject(subjectName).getLength());
+
+                String componentName = componentNameTxt.getText();
+                String componentWeight = componentWeightTxt.getText();
+
+                JLabel topPadding = new JLabel("                                         ");
+                topPadding.setFont(new Font("Sans Serif", Font.BOLD,20));
+
+                addComponentList(componentName, componentWeight, topPadding, false);
+
+                updateProgressCircle();
             }
         });
     }
 
 
-    private void addComponentList() {
-        String componentName = componentNameTxt.getText();
-        String componentColumnTitle = " " + componentName + "  |  Weight: " + componentWeightTxt.getText();
+    public void addComponentList(String componentName, String componentWeight, JLabel topPadding,
+                                 boolean isFromRead) {
+        String componentColumnTitle = " " + componentName + "  |  Weight: " + componentWeight;
 
         DefaultListModel componentListModel = new DefaultListModel();
         componentListModel.addElement(componentColumnTitle);
 
-        JLabel topPadding = new JLabel("                                         ");
-        topPadding.setFont(new Font("Sans Serif", Font.BOLD,20));
-
         JList newComponentList = new JList(componentListModel);
+
         newComponentList.setFixedCellWidth(600);
         newComponentList.setFont(new Font("Sans Serif", Font.PLAIN, 18));
         newComponentList.setForeground(new Color(0,0,0));
-
 
         newComponentList.setCellRenderer(new NoDisabledRenderer(newComponentList.getForeground(),
                                         newComponentList.getBackground()));
@@ -194,17 +190,38 @@ public class SubjectPage extends JPanel {
         newComponentPanel.add(newComponentList);
 
         add(newComponentPanel, 0);
-        addComponent();
 
-        componentWeightTxt.setText("");
-        componentNameTxt.setText("");
+        if (!isFromRead) {
+            addComponent(componentName, componentWeight);
+        } else {
+            addAssignmentsToGUI(componentListModel, componentName);
+        }
+
+        resetAddComponentText();
 
         SwingUtilities.updateComponentTreeUI(frame);
     }
 
-    private void addComponent() {
-        String componentName = componentNameTxt.getText();
-        int componentWeight = Integer.parseInt(componentWeightTxt.getText());
+    private void addAssignmentsToGUI(DefaultListModel componentListModel, String componentName) {
+        GradeComponent thisComponent = enrolledClasses.getSubject(subjectName).getComponent(componentName);
+        LinkedList<Assignment> assignments = thisComponent.getAssignments();
+        for (Assignment assignment: assignments) {
+            String assignmentName = assignment.getName();
+            String assignmentGrade = String.valueOf(assignment.getGrade());
+            addAssignmentToList(componentListModel, assignmentName, assignmentGrade,componentName,true);
+
+            updateProgressCircle();
+        }
+    }
+
+
+    private void resetAddComponentText() {
+        componentWeightTxt.setText("");
+        componentNameTxt.setText("");
+    }
+
+    private void addComponent(String componentName, String componentWeightParameter) {
+        int componentWeight = Integer.valueOf(componentWeightParameter);
 
         GradeComponent newComponent = new GradeComponent(componentName,componentWeight);
 
@@ -272,22 +289,33 @@ public class SubjectPage extends JPanel {
         addAssignmentBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addAssignmentToList(newComponentList, assignmentNameTxt, assignmentGradeTxt, componentName);
+                String assignmentName = assignmentNameTxt.getText();
+                String assignmentGrade = assignmentGradeTxt.getText();
+                assignmentNameTxt.setText("");
+                assignmentGradeTxt.setText("");
+                addAssignmentToList(newComponentList, assignmentName, assignmentGrade, componentName, false);
             }
         });
     }
 
-    private void addAssignmentToList(DefaultListModel newComponentList, JTextField assignmentNameTxt,
-                                     JTextField assignmentGradeTxt, String componentName) {
-        String assignmentName = assignmentNameTxt.getText();
-        double assignmentGrade = Double.parseDouble(assignmentGradeTxt.getText());
+    public void addAssignmentToList(DefaultListModel newComponentList, String assignmentName,
+                                     String assignmentGradeParam, String componentName,
+                                    Boolean isFromRead) {
+        double assignmentGrade = Double.parseDouble(assignmentGradeParam);
         String newAssignment = " " + assignmentGrade + " | " + assignmentName;
-
         newComponentList.addElement(newAssignment);
-        addAssignment(assignmentName, assignmentGrade, componentName);
 
-        assignmentNameTxt.setText("");
-        assignmentGradeTxt.setText("");
+        if (!isFromRead) {
+            addAssignment(assignmentName, assignmentGrade, componentName);
+        }
+
+        updateProgressCircle();
+
+    }
+
+    private void updateProgressCircle() {
+        progressCircle.setValue((int) enrolledClasses.getSubject(subjectName).getSubjectAverage());
+        progressCircle.setUI(new AverageProgressCircle());
     }
 
     private void addAssignment(String assignmentName, double assignmentGrade, String componentName) {
@@ -296,12 +324,6 @@ public class SubjectPage extends JPanel {
         GradeComponent selectedComponent = selectedSubject.getComponent(componentName);
         selectedComponent.addAssignment(newAssignment);
     }
-
-
-
-
-
-
 
 
 

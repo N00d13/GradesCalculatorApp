@@ -116,6 +116,12 @@ public class ClassList {
         return this.length;
     }
 
+    //EFFECTS: returns the list of subjects added
+    public LinkedList<Subject> getSubjects() {
+        return subjects;
+    }
+
+    //EFFECT: Declares Json Object variables and calls arrayToJson
     public JSONObject toJson() {
         JSONObject jsonObject = new JSONObject();
         String subjectName = "";

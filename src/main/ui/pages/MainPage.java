@@ -76,21 +76,27 @@ public class MainPage extends JPanel {
         addCourseBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String subjectName = addCourseBox.getText();
-                addCourseBox.setText("");
-
-                SubjectPage subjectPane = new SubjectPage(frame, subjectName, enrolledClasses);
-                subjectPane.setLayout(new BoxLayout(subjectPane,BoxLayout.Y_AXIS));
-
-                JScrollPane scrollPane = new JScrollPane(subjectPane);
-
-                leftTabs.addTab(subjectName, scrollPane);
-
-                Subject newSubject = new Subject(subjectName);
-                enrolledClasses.addSubject(newSubject);
+                addNewSubjectTab();
             }
         });
     }
+
+    private void addNewSubjectTab() {
+        String subjectName = addCourseBox.getText();
+        addCourseBox.setText("");
+
+        SubjectPage subjectPane = new SubjectPage(frame, subjectName, enrolledClasses);
+        subjectPane.setLayout(new BoxLayout(subjectPane,BoxLayout.Y_AXIS));
+
+        JScrollPane scrollPane = new JScrollPane(subjectPane);
+
+        leftTabs.addTab(subjectName, scrollPane);
+
+        Subject newSubject = new Subject(subjectName);
+        enrolledClasses.addSubject(newSubject);
+    }
+
+
 
     private void setBackgroundStyle() {
         this.setBackground(new Color(200,200,200));
