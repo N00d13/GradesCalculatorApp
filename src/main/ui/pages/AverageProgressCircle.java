@@ -7,7 +7,11 @@ import java.awt.geom.Arc2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Area;
 
+//Overrides basic progress square progress bar to a circle
 public class AverageProgressCircle extends BasicProgressBarUI {
+
+    //MODIFIES: this
+    //EFFECTS: Sets preferred size of circle progress bar
     public Dimension getPreferredSize(JComponent component) {
         Dimension dimensions = super.getPreferredSize(component);
         int size = Math.max(dimensions.width,dimensions.height);
@@ -15,6 +19,8 @@ public class AverageProgressCircle extends BasicProgressBarUI {
         return dimensions;
     }
 
+    //MODIFIES: this
+    //EFFECTS: paints progress bar to create a circle instead of a rectangle
     public void paint(Graphics graphics, JComponent component) {
         Insets borderArea = progressBar.getInsets();
         int borderAreaRecWidth = progressBar.getWidth() - borderArea.right - borderArea.left;
@@ -45,6 +51,7 @@ public class AverageProgressCircle extends BasicProgressBarUI {
         checkIsStringPainted(graphics, borderArea, borderAreaRecWidth, borderAreaRecHeight);
     }
 
+    //EFFECTS: Checks if progress bar is painted and if not then repaints it
     private void checkIsStringPainted(Graphics graphics,Insets borderArea, int borderAreaRecWidth,
                                       int borderAreaRecHeight) {
         if (progressBar.isStringPainted()) {

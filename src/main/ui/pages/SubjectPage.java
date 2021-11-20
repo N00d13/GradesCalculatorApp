@@ -68,6 +68,7 @@ public class SubjectPage extends JPanel {
         add(progressPanel);
     }
 
+    //EFFECTS: Creates a component form
     private void addComponentForm() {
         JLabel componentNameWrt = new JLabel();
         componentNameWrt.setText("Component Name: ");
@@ -94,6 +95,8 @@ public class SubjectPage extends JPanel {
 
     }
 
+    //MODIFIES: this
+    //EFFECTS: Adds new component input to componentForm
     private void addToComponentForm(JLabel componentNameWrt, JLabel componentWeightWrt,
                                     JLabel textSpacing, JLabel weightWarning) {
         componentInputForm.add(componentNameWrt);
@@ -116,6 +119,8 @@ public class SubjectPage extends JPanel {
         add(componentForm);
     }
 
+    //MODIFIES: this
+    //EFFECTS: creates a button to add a new component
     private void addComponentButton() {
         addComponentBtn.setPreferredSize(new Dimension(85,35));
         addComponentBtn.setFont(new Font("Sans Serif", Font.BOLD | Font.ITALIC, 18));
@@ -124,6 +129,8 @@ public class SubjectPage extends JPanel {
         addComponentAction();
     }
 
+    //MODIFIES: this
+    //EFFECTS: Adds action listener to add component button
     private void addComponentAction() {
         addComponentBtn.addActionListener(new ActionListener() {
             @Override
@@ -151,7 +158,7 @@ public class SubjectPage extends JPanel {
         });
     }
 
-
+    //EFFECTS: Creates a list for a component that assignments can be added to
     public void addComponentList(String componentName, String componentWeight, JLabel topPadding,
                                  boolean isFromRead) {
         String componentColumnTitle = " " + componentName + "  |  Weight: " + componentWeight;
@@ -190,6 +197,7 @@ public class SubjectPage extends JPanel {
         SwingUtilities.updateComponentTreeUI(frame);
     }
 
+    //EFFECTS: iterates through assignments from a load file and adds them to their respective componet lists
     private void addAssignmentsToGUI(DefaultListModel componentListModel, String componentName) {
         GradeComponent thisComponent = enrolledClasses.getSubject(subjectName).getComponent(componentName);
         LinkedList<Assignment> assignments = thisComponent.getAssignments();
@@ -202,12 +210,15 @@ public class SubjectPage extends JPanel {
         }
     }
 
-
+    //MODIFIES: this
+    //EFFECTS: resets  text fields with component name and weight
     private void resetAddComponentText() {
         componentWeightTxt.setText("");
         componentNameTxt.setText("");
     }
 
+    //MODIFIES: this
+    //EFFECTS: Iterates through load file components and adds them to this subject
     private void addComponent(String componentName, String componentWeightParameter) {
         int componentWeight = Integer.valueOf(componentWeightParameter);
 
@@ -217,6 +228,7 @@ public class SubjectPage extends JPanel {
         subjectSelected.addComponent(newComponent);
     }
 
+    //EFFECTS: Creates a form where assignments can be added to a component
     private void addAssignmentForm(JPanel newComponentPanel, DefaultListModel newComponentList, String componentName) {
         JLabel assignmentNameWrt = new JLabel();
         assignmentNameWrt.setText("Assignment Name: ");
@@ -239,8 +251,7 @@ public class SubjectPage extends JPanel {
                             componentName);
     }
 
-
-
+    //EFFECTS: Adds all panels and input fields to the assignmentForm
     private void addToAssignmentForm(JLabel assignmentNameWrt, JLabel assignmentGradeWrt,
                                      JTextField assignmentNameTxt, JTextField assignmentGradeTxt,
                                      JPanel addComponentPanel, DefaultListModel newComponentList,
@@ -258,6 +269,7 @@ public class SubjectPage extends JPanel {
         addComponentPanel.add(assignmentForm);
     }
 
+    //EFFECTS: Creates a new assignment button
     private void addAssignmentButton(JPanel assignmentForm, DefaultListModel newComponentList,
                                      JTextField assignmentNameTxt, JTextField assignmentGradeTxt,
                                      String componentName) {
@@ -271,6 +283,7 @@ public class SubjectPage extends JPanel {
                             componentName);
     }
 
+    //EFFECTS: Creates and action listener to the add assignment button
     private void addAssignmentAction(JButton addAssignmentBtn, DefaultListModel newComponentList,
                                      JTextField assignmentNameTxt, JTextField assignmentGradeTxt,
                                      String componentName) {
@@ -286,6 +299,7 @@ public class SubjectPage extends JPanel {
         });
     }
 
+    //EFFECTS: Adds a new assignment to its respective component list
     public void addAssignmentToList(DefaultListModel newComponentList, String assignmentName,
                                      String assignmentGradeParam, String componentName,
                                     Boolean isFromRead) {
@@ -301,11 +315,15 @@ public class SubjectPage extends JPanel {
 
     }
 
+    //MODIFIES: this
+    //EFFECTS: Updates UI of the progress circle
     private void updateProgressCircle() {
         progressCircle.setValue((int) enrolledClasses.getSubject(subjectName).getSubjectAverage());
         progressCircle.setUI(new AverageProgressCircle());
     }
 
+    //MODIFIES: this
+    //EFFECTS: Adds the new assignment to it's component
     private void addAssignment(String assignmentName, double assignmentGrade, String componentName) {
         Assignment newAssignment = new Assignment(assignmentName, assignmentGrade);
         Subject selectedSubject = enrolledClasses.getSubject(subjectName);
@@ -314,23 +332,26 @@ public class SubjectPage extends JPanel {
     }
 
 
-
-
-
+    //Class to override component list renderer
     private class NoDisabledRenderer extends DefaultListCellRenderer {
-        Color foregroundColor;
-        Color backgroundColour;
+        Color foregroundColor; //Foreground colour of list
+        Color backgroundColour; //Background colour of list
 
+        //MODIFIES: this
+        //EFFECTS: Creates constructor of noDisabledRenderer
         public NoDisabledRenderer(Color c1, Color c2) {
             super();
             foregroundColor = c1;
             backgroundColour = c2;
         }
 
+        //EFFECTS: overrides setEnable function to make null
         public void setEnabled(boolean b) {
             //null
         }
 
+        //MODIFIES: this
+        //EFFECTS: Overrides font, background colour and foreground colour of component list
         public Component getListCellRendererComponent(JList list, Object value,
                                                       int index, boolean isSelected, boolean cellHasFocus) {
             Component jlistComponent = super.getListCellRendererComponent(list, value,
