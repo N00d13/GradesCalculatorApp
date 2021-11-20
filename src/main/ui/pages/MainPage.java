@@ -5,17 +5,17 @@ import java.awt.*;
 import java.awt.event.*;
 import model.ClassList;
 import model.Subject;
-import ui.pages.SubjectPage;
 
+//Creates the main page when application opens
 public class MainPage extends JPanel {
-    private JButton addCourseBtn;
-    private JTextField addCourseBox;
-    private JTabbedPane leftTabs;
-    private ClassList enrolledClasses;
-    private JFrame frame;
+    private JButton addCourseBtn; //Button to add a subject
+    private JTextField addCourseBox; //Text Field of subject to add
+    private JTabbedPane leftTabs; // panel containing left tabs
+    private ClassList enrolledClasses; //Classlist object containing all subjects enrolled in
+    private JFrame frame; //Frame containing all panels
 
 
-
+    //EFFECTS: initializes leftTabs, enrolledClass and frame then runs mainPage
     public MainPage(JTabbedPane leftTabs, ClassList enrolledClasses,JFrame frame) {
         this.leftTabs = leftTabs;
         this.enrolledClasses = enrolledClasses;
@@ -23,6 +23,7 @@ public class MainPage extends JPanel {
         runMainPage();
     }
 
+    //EFFECTS: Creates Main page with all elements
     private void runMainPage() {
         welcomeText();
         addCourseTxtBox();
@@ -30,6 +31,7 @@ public class MainPage extends JPanel {
         setBackgroundStyle();
     }
 
+    //EFFECTS: Creates welcome texts and displays it
     private void welcomeText() {
         JLabel topSpacing = new JLabel("                                         ");
         topSpacing.setFont(new Font("Sans Serif", Font.BOLD,85));
@@ -45,6 +47,8 @@ public class MainPage extends JPanel {
         add(middleSpacing);
     }
 
+    //MODIFIES: this
+    //EFFECTS: creates and adds an add course button
     private void addCourseButton() {
         addCourseBtn = new JButton("Add Course");
         addCourseBtn.setFont(new Font("Sans Serif", Font.BOLD,25));
@@ -54,6 +58,8 @@ public class MainPage extends JPanel {
         addCourseAction();
     }
 
+    //MODIFIES: this
+    //EFFECTS: Creates and adds a text box to write a new subject name
     private void addCourseTxtBox() {
         JLabel enterCourseTxt = new JLabel();
         enterCourseTxt.setText("Enter Course Name:");
@@ -72,6 +78,8 @@ public class MainPage extends JPanel {
         add(topSpacing);
     }
 
+    //MODIFIES: this
+    //EFFECTS: creates an action for the add subject button
     private void addCourseAction() {
         addCourseBtn.addActionListener(new ActionListener() {
             @Override
@@ -81,6 +89,8 @@ public class MainPage extends JPanel {
         });
     }
 
+    //MODIFIES: this
+    //EFFECTS: Creates a new subject tab
     private void addNewSubjectTab() {
         String subjectName = addCourseBox.getText();
         addCourseBox.setText("");
@@ -96,8 +106,7 @@ public class MainPage extends JPanel {
         enrolledClasses.addSubject(newSubject);
     }
 
-
-
+    //EFFECTS: Styles the background of main page panel
     private void setBackgroundStyle() {
         this.setBackground(new Color(200,200,200));
     }

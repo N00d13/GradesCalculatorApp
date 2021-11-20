@@ -2,10 +2,7 @@ package persistence;
 
 import model.ClassList;
 import org.json.JSONObject;
-
 import java.io.*;
-
-import model.ClassList;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 

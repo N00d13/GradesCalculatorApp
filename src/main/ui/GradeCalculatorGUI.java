@@ -32,10 +32,12 @@ public class GradeCalculatorGUI extends JPanel {
     private JsonReader fileReader; //File Reader
     private ClassList enrolledClasses; //ClassList object containing subjects enrolled in
 
+    //EFFECTS: constructs grade calculator GUI
     public GradeCalculatorGUI() {
         runGradeCalculatorGUI();
     }
 
+    //EFFECTS: Runs grade calculator GUI
     private void runGradeCalculatorGUI() {
         try {
             init();
@@ -48,6 +50,8 @@ public class GradeCalculatorGUI extends JPanel {
         showFrame();
     }
 
+    //MODIFIES: this
+    //EFFECTS: Sets look and feel and initializes classList, fieWriter and fileReader
     private void init() throws UnsupportedLookAndFeelException {
         UIManager.setLookAndFeel(new MetalLookAndFeel());
         enrolledClasses = new ClassList();
@@ -55,6 +59,8 @@ public class GradeCalculatorGUI extends JPanel {
         fileReader = new JsonReader(FILE_SAVE_LOCATION);
     }
 
+    //MODIFIES: this
+    //EFFECTS: create GUI frame
     private void createFrame() {
         frame = new JFrame("Grade Calculator");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,6 +68,8 @@ public class GradeCalculatorGUI extends JPanel {
         frame.setResizable(false);
     }
 
+    //MODIFIES: this
+    //EFFECTS: creates menu bar
     private void createMenuBar() {
         menuBar = new JMenuBar();
         menuBar.setBackground(white);
@@ -90,6 +98,7 @@ public class GradeCalculatorGUI extends JPanel {
         loadMenuAction(loadMenu);
     }
 
+    //EFFECTS: adds action to saveMenu
     private void saveMenuAction(JMenuItem saveMenu) {
         saveMenu.addActionListener(new ActionListener() {
             @Override
@@ -99,6 +108,7 @@ public class GradeCalculatorGUI extends JPanel {
         });
     }
 
+    //EFFECTS: adds action to openMenu
     private void loadMenuAction(JMenuItem openMenu) {
         openMenu.addActionListener(new ActionListener() {
             @Override
@@ -108,6 +118,8 @@ public class GradeCalculatorGUI extends JPanel {
         });
     }
 
+    //MODIFIES: this
+    //EFFECTS: Creates left tabs and adds a home page
     private void createLeftTabs() {
         leftTabs = new JTabbedPane(JTabbedPane.LEFT, JTabbedPane.SCROLL_TAB_LAYOUT);
         mainPage = new MainPage(leftTabs, enrolledClasses, frame);
@@ -121,12 +133,15 @@ public class GradeCalculatorGUI extends JPanel {
         frame.add(leftTabs);
     }
 
-
+    //MODIFIES: this
+    //EFFECTS: Shows the frame
     private void showFrame() {
         frame.getContentPane().add(BorderLayout.NORTH, menuBar);
         frame.setVisible(true);
     }
 
+    //MODIFIES: this
+    //EFFECTS: saves information to a file
     private void saveFile() {
         try {
             fileWriter.open();
@@ -137,6 +152,8 @@ public class GradeCalculatorGUI extends JPanel {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: loads information from a file
     private void loadFile() {
         try {
             enrolledClasses = fileReader.read();
@@ -146,6 +163,8 @@ public class GradeCalculatorGUI extends JPanel {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: Adds all subjects from a load file
     private void addSubjectGUI() {
         for (Subject subject: enrolledClasses.getSubjects()) {
             String subjectName = subject.getName();
@@ -159,6 +178,8 @@ public class GradeCalculatorGUI extends JPanel {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: adds all components from each subject in a load file
     private void addComponentGUI(Subject subject, SubjectPage subjectPane) {
         for (GradeComponent component: subject.getGradeComponents()) {
             String componentName = component.getName();

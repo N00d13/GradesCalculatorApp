@@ -12,28 +12,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
+//Creates a subject page panel
 public class SubjectPage extends JPanel {
-    private JPanel averagePanel;
+    private JPanel componentForm; //Panel to add a new component
+    private JPanel componentInputForm; //Panel to get input for component form
+    private JTextField componentNameTxt; //Text field for new component name
+    private JTextField componentWeightTxt; //Text field for new component weight
+    private JButton addComponentBtn; //Button to add a new component
 
-    private JPanel componentForm;
-    private JPanel componentInputForm;
-    private JTextField componentNameTxt;
-    private JTextField componentWeightTxt;
-    private JButton addComponentBtn;
+    private JFrame frame; //Frame with all panels
 
-    private JFrame frame;
+    private String subjectName; //String with the subject name of this Subject PAge
+    private ClassList enrolledClasses; //ClassList object containing all subjects enrolled in
 
-    private String subjectName;
-    private ClassList enrolledClasses;
+    private JProgressBar progressCircle;//progress bar in circular shape displaying subject average
 
-    private JProgressBar progressCircle;
-
+    //MODIFIES: this
+    //EFFECTS: constructs Subject Page
     public SubjectPage(JFrame frame, String subjectName, ClassList enrolledClasses) {
         this.frame = frame;
         this.subjectName = subjectName;
         this.enrolledClasses = enrolledClasses;
-
-        averagePanel = new JPanel();
 
         componentNameTxt = new JTextField();
         componentWeightTxt = new JTextField();
@@ -45,11 +44,13 @@ public class SubjectPage extends JPanel {
         runSubjectPage();
     }
 
+    //EFFECTS: Runs the subject page
     private void runSubjectPage() {
         addComponentForm();
         addAvgProgressBar();
     }
 
+    //EFFECTS: Creates a progress bar displaying average
     private void addAvgProgressBar() {
         progressCircle = new JProgressBar();
         progressCircle.setUI(new AverageProgressCircle());
@@ -66,19 +67,6 @@ public class SubjectPage extends JPanel {
 
         add(progressPanel);
     }
-
-
-    private int getOverallAverage() {
-        if (enrolledClasses.getOverallAverage() == -1) {
-            return 0;
-        } else if (enrolledClasses.getOverallAverage() == -2) {
-            return 0;
-        }
-        int average = (int) enrolledClasses.getOverallAverage();
-        return average;
-    }
-
-
 
     private void addComponentForm() {
         JLabel componentNameWrt = new JLabel();
