@@ -43,6 +43,14 @@ The grade component Quizzes was added to Math
 Tue Nov 23 16:52:37 PST 2021\
 The assignment Quiz One was added to Quizzes
 
+## Phase 4: Task 3
+By looking at the ULM class diagram, the overall design is structurally strong. The layout of a class list containing subjects, 
+subjects containing grade components and grade components containing assignments creates a tree structure where information is 
+locally stored as you go further down the branch. One part of the design I would refactor is how the GUI is mapped out. 
+Instead of the GradeCalculatorGUI class containing the frame, left panels and main panels for different pages, I would create 
+different classes for each component. There would be new classes for the left panel, menu panel, page panel and frame container. 
+This change would create a more organized layout that would improve the readability and editability of the code.
+
 ## Citation
 Some of the code from JsonWriter and JsonReader includes modified methods from the GiHub project:
 https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
