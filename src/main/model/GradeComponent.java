@@ -21,6 +21,8 @@ public class GradeComponent {
     public void addAssignment(Assignment assignment) {
         assignments.add(assignment);
         length++;
+        EventLog.getInstance().logEvent(new Event("The assignment " + assignment.getName()
+                                                  + " was added to " + componentName));
     }
 
     //EFFECTS: returns the weighed average of a component. If no assignments in component then returns -1

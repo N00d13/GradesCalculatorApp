@@ -13,7 +13,6 @@ public class Subject {
     public Subject(String subjectName) {
         this.subjectName = subjectName;
         this.gradeComponents = new LinkedList<GradeComponent>();
-
     }
 
     //MODIFIES: this
@@ -21,6 +20,8 @@ public class Subject {
     public void addComponent(GradeComponent gradeComponent) {
         gradeComponents.add(gradeComponent);
         length++;
+        EventLog.getInstance().logEvent(new Event("The grade component " + gradeComponent.getName()
+                                                  + " was added to " + subjectName));
     }
 
     //REQUIRES: Sum of grade component weight <= 100

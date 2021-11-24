@@ -3,21 +3,16 @@ package ui;
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import model.ClassList;
-import model.Subject;
-import model.GradeComponent;
-import model.Assignment;
+import model.*;
 
 import persistence.JsonReader;
 import persistence.JsonWriter;
 import ui.pages.MainPage;
 import ui.pages.SubjectPage;
-
 
 import static java.awt.Color.*;
 
@@ -64,6 +59,7 @@ public class GradeCalculatorGUI extends JPanel {
     private void createFrame() {
         frame = new JFrame("Grade Calculator");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        detectWindowClosing();
         frame.setSize(800,600);
         frame.setResizable(false);
     }
@@ -175,6 +171,7 @@ public class GradeCalculatorGUI extends JPanel {
             JScrollPane scrollPane = new JScrollPane(subjectPane);
             leftTabs.addTab(subjectName, scrollPane);
             addComponentGUI(subject, subjectPane);
+
         }
     }
 
@@ -192,7 +189,14 @@ public class GradeCalculatorGUI extends JPanel {
         }
     }
 
+    //EFFECTS:
+    private void detectWindowClosing() {
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                LogPrinter logPrinter = new LogPrinter();
+                logPrinter.printLog(EventLog.getInstance());
+            }
+        });
 
-
-
+    }
 }

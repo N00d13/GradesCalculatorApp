@@ -23,6 +23,8 @@ public class ClassList {
     public void addSubject(Subject subject) {
         subjects.add(subject);
         length++;
+        EventLog.getInstance().logEvent(new Event("The subject " + subject.getName()
+                                                  + " was added to the class list"));
     }
 
     //REQUIRES: parameter subject exists in subject list
@@ -31,6 +33,8 @@ public class ClassList {
     public void removeClass(Subject subject) {
         subjects.remove(subject);
         length--;
+        EventLog.getInstance().logEvent(new Event("The subject " + subject.getName()
+                                                     + " has been removed from the class list"));
     }
 
     //REQUIRES: length > 0
