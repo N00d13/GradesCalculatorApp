@@ -25,22 +25,22 @@ These are some examples how the application can be used.
 - As a user, I want to be able to load my classes, grade components and assignments from a file
 
 ## Phase 4: Task 2
-Tue Nov 23 16:52:04 PST 2021
+Tue Nov 23 16:52:04 PST 2021\
 The subject Math was added to the class list
 
-Tue Nov 23 16:52:11 PST 2021
+Tue Nov 23 16:52:11 PST 2021\
 The grade component Tests was added to Math
 
-Tue Nov 23 16:52:18 PST 2021
+Tue Nov 23 16:52:18 PST 2021\
 The assignment Test One was added to Tests
 
-Tue Nov 23 16:52:23 PST 2021
+Tue Nov 23 16:52:23 PST 2021 \
 The assignment Test Two was added to Tests
 
-Tue Nov 23 16:52:30 PST 2021
+Tue Nov 23 16:52:30 PST 2021\
 The grade component Quizzes was added to Math
 
-Tue Nov 23 16:52:37 PST 2021
+Tue Nov 23 16:52:37 PST 2021\
 The assignment Quiz One was added to Quizzes
 
 ## Citation
