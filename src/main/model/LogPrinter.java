@@ -9,4 +9,12 @@ public class LogPrinter {
             System.out.println(next.toString() + "\n");
         }
     }
+
+    public String getPrintLog(EventLog el) {
+        String log = "";
+        for (Event next : el) {
+            log += next.toString() + "\n";
+        }
+        return log;
+    }
 }
